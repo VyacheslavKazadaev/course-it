@@ -8,6 +8,11 @@ def main():
     t4 = "строка"
     print(f"{t4 = } - str")
 
+    if isinstance(t1, int):
+        print("t1 is integer")
+    elif isinstance(t1, str):
+        print("t1 is string")    
+
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,8 @@
 # Конспект
 
-## Задание 1: Настройка окружения (45 минут)
+## 1-2 день
+
+### Задание 1: Настройка окружения (45 минут)
 
 ```bash
 # Шаг 0: Установка Python
@@ -21,11 +23,11 @@ cd week1
 touch hello.py
 ```
 
-## Задание 2: Первая программа (60 минут)
+### Задание 2: Первая программа (60 минут)
 
 **greet_user.go**
 
-## Задание 3: Деплой на GitHub (45 минут)
+### Задание 3: Деплой на GitHub (45 минут)
 
 ```bash
 # Инициализировать Git репозиторий
@@ -39,3 +41,55 @@ git commit -m "Первая программа - приветствие поль
 git remote add origin https://github.com/ваш-логин/python-basics-week1.git
 git push -u origin master
 ```
+
+### Практические задачи
+
+* Калькулятор в консоли
+* Конвертер валют
+
+### Git практика: создание новых веток в консоли
+
+```bash
+# Обновить репозиторий
+git add calculator.py currency_converter.py
+git commit -m "Добавлены калькулятор и конвертер валют"
+
+# Создать ветку для улучшений
+git checkout -b feature/improvements
+# Внести изменения в один из файлов
+git add .
+git commit -m "Добавлена дополнительная функция"
+git push origin feature/improvements
+
+# Вернуться в основную ветку
+git checkout master
+```
+
+## 3-4 день
+
+### Циклы и списки
+
+Интерактивные упражнения (15 минут):
+
+* Python Loops на learnpython.org
+* Python Lists на learnpython.org
+* Python Dictionaries на learnpython.org
+* Sets на learnpython.org
+
+* **loops_lists.py**
+* **dict.py**
+* **sets_tuple.py**
+
+Визуализация (15 минут):
+
+[Python Tutor](https://pythontutor.com/?spm=a2ty_o01.29997173.0.0.4a565171ebn7Tm) - визуализатор выполнения кода
+Протестировать несколько примеров с циклами и списками
+
+### Практика
+
+* Таблица умножения 
+* Список покупок: list_buy.py
+
+
+
+

@@ -1,8 +1,8 @@
 # Sets
 a = {"Jake", "John", "Eric"}
-print(a)
+print(f"{a = }")
 b = {"John", "Jill"}
-print(b)
+print(f"{b = }")
 
 print(a.intersection(b))
 print(b.intersection(a))

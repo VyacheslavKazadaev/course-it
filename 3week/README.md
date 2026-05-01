@@ -4,13 +4,13 @@
 
 ## 🎯 Цели Недели 3
 
-| День | Тема | Практика |
-|------|------|----------|
-| **День 1** | Ветвление (Branching) | Создание и переключение веток |
-| **День 2** | Слияние (Merging) | Merge, конфликты, разрешение |
-| **День 3** | Pull/Merge Requests | Code review, workflow |
-| **День 4** | Стратегии ветвления | GitFlow, GitHub Flow, Trunk-Based |
-| **День 5** | Финальный проект | Полный цикл разработки |
+| День             | Тема                              | Практика                                        |
+| -------------------- | ------------------------------------- | ------------------------------------------------------- |
+| **День 1** | Ветвление (Branching)        | Создание и переключение веток |
+| **День 2** | Слияние (Merging)              | Merge, конфликты, разрешение         |
+| **День 3** | Pull/Merge Requests                   | Code review, workflow                                   |
+| **День 4** | Стратегии ветвления | GitFlow, GitHub Flow, Trunk-Based                       |
+| **День 5** | Финальный проект       | Полный цикл разработки              |
 
 ---
 
@@ -40,11 +40,11 @@ git branch -a
 
 ### 🎮 Интерактивные упражнения в браузере
 
-| Ресурс | Описание | Ссылка |
-|--------|----------|--------|
-| **Learn Git Branching** | Визуальная игра с уровнями | [learngitbranching.js.org](https://learngitbranching.js.org/)  |
-| **Git Rail Control** | Интерактивное обучение Git | [thomasthornton.cloud](https://thomasthornton.cloud/git-rail-control-an-interactive-way-to-learn-git/)  |
-| **Git Game** | Геймифицированное обучение | [git-game.com](https://www.git-game.com/) |
+| Ресурс                  | Описание                                    | Ссылка                                                                                        |
+| ----------------------------- | --------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| **Learn Git Branching** | Визуальная игра с уровнями   | [learngitbranching.js.org](https://learngitbranching.js.org/)                                          |
+| **Git Rail Control**    | Интерактивное обучение Git     | [thomasthornton.cloud](https://thomasthornton.cloud/git-rail-control-an-interactive-way-to-learn-git/) |
+| **Git Game**            | Геймифицированное обучение | [git-game.com](https://www.git-game.com/)                                                              |
 
 ### ✅ Задание 1.1: Базовое ветвление
 
@@ -82,7 +82,8 @@ cat README.md
 ### Теория
 
 **Типы слияния:**
-- **Fast-forward** — когда нет новых коммитов в целевой ветке 
+
+- **Fast-forward** — когда нет новых коммитов в целевой ветке
 - **Three-way merge** — создаётся новый коммит слияния
 - **Rebase** — переписывает историю (осторожно!)
 
@@ -101,9 +102,9 @@ git merge --abort
 
 ### 🎮 Интерактивные упражнения
 
-| Упражнение | Фокус | Ссылка |
-|------------|-------|--------|
-| **Merge Conflicts Game** | Разрешение конфликтов | [mergely.com](https://www.mergely.com/) |
+| Упражнение            | Фокус                                    | Ссылка                             |
+| ------------------------------- | --------------------------------------------- | ---------------------------------------- |
+| **Merge Conflicts Game**  | Разрешение конфликтов     | [mergely.com](https://www.mergely.com/)     |
 | **Git Conflict Resolver** | Визуализация конфликтов | [gitconflict.com](https://gitconflict.com/) |
 
 ### ✅ Задание 2.1: Создание и разрешение конфликта
@@ -160,6 +161,7 @@ git commit -m "Resolve merge conflict"
 ```
 
 **Best Practices для PR :**
+
 - ✅ Держите PR маленькими и сфокусированными
 - ✅ Запрашивайте code review перед мерджем
 - ✅ Используйте чек-листы для проверки
@@ -167,11 +169,11 @@ git commit -m "Resolve merge conflict"
 
 ### 🎮 Интерактивные упражнения
 
-| Платформа | Упражнение | Ссылка |
-|-----------|------------|--------|
-| **GitHub** | First PR Tutorial | [github.com/first-contributions](https://github.com/first-contributions/first-contributions)  |
-| **GitLab** | Merge Request Guide | [docs.gitlab.com/ee/user/project/merge_requests/](https://docs.gitlab.com/ee/user/project/merge_requests/)  |
-| **Visual Guide** | PR Visualization | [github.com/yangsu/pull-request-tutorial](https://github.com/yangsu/pull-request-tutorial)  |
+| Платформа     | Упражнение | Ссылка                                                                                            |
+| ---------------------- | -------------------- | ------------------------------------------------------------------------------------------------------- |
+| **GitHub**       | First PR Tutorial    | [github.com/first-contributions](https://github.com/first-contributions/first-contributions)               |
+| **GitLab**       | Merge Request Guide  | [docs.gitlab.com/ee/user/project/merge_requests/](https://docs.gitlab.com/ee/user/project/merge_requests/) |
+| **Visual Guide** | PR Visualization     | [github.com/yangsu/pull-request-tutorial](https://github.com/yangsu/pull-request-tutorial)                 |
 
 ### ✅ Задание 3.1: Создание Pull Request
 
@@ -195,6 +197,7 @@ git push -u origin feature/footer
 ```
 
 **📝 Чек-лист PR:**
+
 - [ ] Заголовок описывает изменение
 - [ ] Описание включает "что" и "почему"
 - [ ] Связанные issue упомянуты
@@ -207,12 +210,12 @@ git push -u origin feature/footer
 
 ### Теория: Современные подходы 2025-2026
 
-| Стратегия | Описание | Когда использовать |
-|-----------|----------|-------------------|
-| **Trunk-Based** | Короткоживущие ветки, мердж в main  | CI/CD, небольшие команды |
-| **GitHub Flow** | Feature branches → PR → main  | Веб-приложения, SaaS |
-| **GitFlow** | develop + feature + release + hotfix  | Релизные циклы, enterprise |
-| **GitLab Flow** | Environment branches  | GitLab, деплой по окружениям |
+| Стратегия    | Описание                                            | Когда использовать            |
+| --------------------- | ----------------------------------------------------------- | ---------------------------------------------- |
+| **Trunk-Based** | Короткоживущие ветки, мердж в main | CI/CD, небольшие команды       |
+| **GitHub Flow** | Feature branches → PR → main                              | Веб-приложения, SaaS              |
+| **GitFlow**     | develop + feature + release + hotfix                        | Релизные циклы, enterprise        |
+| **GitLab Flow** | Environment branches                                        | GitLab, деплой по окружениям |
 
 ```
 ┌────────────────────────────────────────────────────────────┐
@@ -226,7 +229,7 @@ git push -u origin feature/footer
 └────────────────────────────────────────────────────────────┘
 ```
 
-### Naming Conventions 2025 
+### Naming Conventions 2025
 
 ```bash
 # ✅ Правильно
@@ -247,6 +250,7 @@ my-branch
 **Сценарий:** Вы работаете в команде из 5 разработчиков над веб-приложением с ежедневными деплоями.
 
 **Вопросы:**
+
 1. Какую стратегию ветвления выберете? Почему?
 2. Как назовете ветку для функции "добавление корзины"?
 3. Как часто будете мерджить в main?
@@ -265,27 +269,27 @@ my-branch
 ┌─────────────────────────────────────────────────────────────┐
 │                    Финальный Проект                         │
 │                                                             │
-│  📁 Создать репозиторий на GitHub/GitLab                   │
-│  🌿 Создать 3 feature ветки                                │
-│  🔀 Сделать merge с разрешением конфликтов                 │
-│  📝 Создать 2 Pull Requests с code review                  │
-│  🏷️ Добавить теги версий                                  │
-│  📊 Написать README с workflow диаграммой                  │
+│  📁 Создать репозиторий на GitHub/GitLab                    │
+│  🌿 Создать 3 feature ветки                                 │
+│  🔀 Сделать merge с разрешением конфликтов                  │
+│  📝 Создать 2 Pull Requests с code review                   │
+│  🏷️ Добавить теги версий                                    │
+│  📊 Написать README с workflow диаграммой                   │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ### ✅ Требования к проекту
 
-| № | Задача | Баллы |
-|---|--------|-------|
-| 1 | Репозиторий с ≥5 коммитами | 10 |
-| 2 | Минимум 3 ветки (feature/*) | 15 |
-| 3 | 2 PR с описанием и review | 25 |
-| 4 | Разрешённый merge конфликт | 20 |
-| 5 | BRANCH_STRATEGY.md документ | 15 |
-| 6 | Теги версий (v1.0.0) | 10 |
-| 7 | Clean commit history | 5 |
-| **Итого** | | **100** |
+| №                   | Задача                                     | Баллы    |
+| -------------------- | ------------------------------------------------ | ------------- |
+| 1                    | Репозиторий с ≥5 коммитами | 10            |
+| 2                    | Минимум 3 ветки (feature/*)          | 15            |
+| 3                    | 2 PR с описанием и review             | 25            |
+| 4                    | Разрешённый merge конфликт    | 20            |
+| 5                    | BRANCH_STRATEGY.md документ              | 15            |
+| 6                    | Теги версий (v1.0.0)                   | 10            |
+| 7                    | Clean commit history                             | 5             |
+| **Итого** |                                                  | **100** |
 
 ### 📋 Шаблон Pull Request
 
@@ -318,12 +322,12 @@ Closes #<номер>
 
 ### Интерактивные Платформы
 
-| Платформа | Тип | Ссылка |
-|-----------|-----|--------|
-| Learn Git Branching | Игра | [learngitbranching.js.org](https://learngitbranching.js.org/)  |
-| GitHub Skills | Курсы | [skills.github.com](https://skills.github.com/) |
-| GitLab Demo | Песочница | [gitlab.com](https://gitlab.com/) |
-| Oh My Git! | Визуализация | [ohmygit.org](https://ohmygit.org/)  |
+| Платформа  | Тип                   | Ссылка                                               |
+| ------------------- | ------------------------ | ---------------------------------------------------------- |
+| Learn Git Branching | Игра                 | [learngitbranching.js.org](https://learngitbranching.js.org/) |
+| GitHub Skills       | Курсы               | [skills.github.com](https://skills.github.com/)               |
+| GitLab Demo         | Песочница       | [gitlab.com](https://gitlab.com/)                             |
+| Oh My Git!          | Визуализация | [ohmygit.org](https://ohmygit.org/)                           |
 
 ### Cheatsheet
 
@@ -366,21 +370,14 @@ git fetch --prune      # Очистить stale branches
 
 - ✅ Понимаете разницу между merge и rebase
 - ✅ Можете создать и разрешить merge конфликт
-- ✅ Знаете когда использовать какую стратегию ветвления 
+- ✅ Знаете когда использовать какую стратегию ветвления
 - ✅ Создали рабочий PR с code review
-- ✅ Удаляете stale branches регулярно 
+- ✅ Удаляете stale branches регулярно
 
 ---
 
 **🚀 Готовы начать?** Выберите день и приступайте к первому заданию! Если нужны уточнения по любому пункту — спрашивайте.
 
-### USER
-```
-Очистить stale branches
-```
-что это значит?
-
-### ASSISTANT
 ## 🧹 Что такое "Stale Branches" (Устаревшие ветки)?
 
 **Stale branches** — это ветки в Git, которые **больше не нужны**, но всё ещё существуют в вашем репозитории. Они "загрязняют" историю и могут вызывать путаницу.
@@ -389,12 +386,12 @@ git fetch --prune      # Очистить stale branches
 
 ### 📋 Типы устаревших веток
 
-| Тип | Описание | Пример |
-|-----|----------|--------|
-| **Слитые ветки** | Уже merged в main, но не удалены | `feature/login` после PR ✅ |
-| **Заброшенные ветки** | Нет коммитов > 30 дней | `feature/old-experiment` |
-| **Неактуальные ветки** | Задача отменена/изменилась | `bugfix/wont-fix` |
-| **Локальные "призраки"** | Удалены на remote, но есть локально | `origin/deleted-branch` |
+| Тип                                          | Описание                                           | Пример                       |
+| ----------------------------------------------- | ---------------------------------------------------------- | ---------------------------------- |
+| **Слитые ветки**               | Уже merged в main, но не удалены            | `feature/login` после PR ✅ |
+| **Заброшенные ветки**     | Нет коммитов > 30 дней                      | `feature/old-experiment`         |
+| **Неактуальные ветки**   | Задача отменена/изменилась         | `bugfix/wont-fix`                |
+| **Локальные "призраки"** | Удалены на remote, но есть локально | `origin/deleted-branch`          |
 
 ---
 
@@ -458,12 +455,12 @@ gh pr list --state merged | xargs -I {} gh branch delete {}
 
 ### ✅ Best Practices 2025-2026
 
-| Практика | Команда | Частота |
-|----------|---------|---------|
-| Удалять ветку после merge | `git branch -d <branch>` | После каждого PR |
-| Очищать remote треки | `git fetch --prune` | Раз в неделю |
-| Автоматическое удаление | GitHub: "Delete branch on merge" | В настройках репозитория |
-| Ревизия старых веток | `git branch -v --sort=-committerdate` | Раз в месяц |
+| Практика                              | Команда                          | Частота                                 |
+| --------------------------------------------- | --------------------------------------- | ---------------------------------------------- |
+| Удалять ветку после merge    | `git branch -d <branch>`              | После каждого PR                   |
+| Очищать remote треки              | `git fetch --prune`                   | Раз в неделю                         |
+| Автоматическое удаление | GitHub: "Delete branch on merge"        | В настройках репозитория |
+| Ревизия старых веток        | `git branch -v --sort=-committerdate` | Раз в месяц                           |
 
 ---
 
@@ -519,6 +516,6 @@ jobs:
 
 ---
 
-**🎯 Итог:** Stale branches — это "мусор" в репозитории. Регулярная очистка keeps your repo clean, улучшает производительность и снижает путаницу в команде! 
+**🎯 Итог:** Stale branches — это "мусор" в репозитории. Регулярная очистка keeps your repo clean, улучшает производительность и снижает путаницу в команде!
 
 Хотите, чтобы я добавил это задание в День 5 финального проекта? 🚀

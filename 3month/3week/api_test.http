@@ -1,0 +1,23 @@
+### Получить всех пользователей
+GET http://localhost:8000/users
+
+###
+
+### Создать нового пользователя
+POST http://localhost:8000/users/
+Content-Type: application/json
+
+{
+  "username": "testuser3",
+  "email": "test@example.com"
+}
+
+###
+
+### Получить пользователя по ID
+GET http://localhost:8000/users/12
+
+###
+
+### Удалить пользователя по ID
+DELETE http://localhost:8000/users/12

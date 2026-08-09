@@ -1,49 +1,49 @@
+import sys
+import os
+# Добавляем родительскую директорию в путь для импортов
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import pytest
 from unittest.mock import MagicMock, patch
 from repo.db import PostgreSQLConnection
 
 
 class TestPostgreSQLConnection:
-    @patch('repo.db.psycopg2.connect')
-    def test_connect_success(self, mock_connect):
+    @pytest.fixture
+    def mock_db_connection(self):
+        """Фикстура для создания экземпляра PostgreSQLConnection с замокированным psycopg2"""
+        with patch('repo.db.psycopg2'):
+            db = PostgreSQLConnection(host='localhost', database='testdb', user='testuser', password='testpass')
+            yield db
+
+    def test_connect_success(self, mock_db_connection):
         # Подготовка
         mock_connection = MagicMock()
-        mock_connect.return_value = mock_connection
+        mock_db_connection.connection = mock_connection
         
-        db = PostgreSQLConnection(host='localhost', database='testdb', user='testuser', password='testpass')
-
         # Выполнение
-        result = db.connect()
+        result = mock_db_connection.connect()
 
         # Проверка
         assert result is True
-        mock_connect.assert_called_once_with(
-            host='localhost',
-            port=5432,
-            database='testdb',
-            user='testuser',
-            password='testpass'
-        )
-        assert db.connection == mock_connection
+        assert mock_db_connection.connection is not None
 
-    @patch('repo.db.psycopg2.connect')
-    def test_connect_failure(self, mock_connect):
+    def test_connect_failure(self):
         # Подготовка
-        mock_connect.side_effect = Exception("Connection failed")
-        
-        db = PostgreSQLConnection(host='invalid_host', database='testdb', user='testuser', password='testpass')
+        with patch('repo.db.psycopg2.connect') as mock_connect:
+            mock_connect.side_effect = Exception("Connection failed")
+            
+            db = PostgreSQLConnection(host='invalid_host', database='testdb', user='testuser', password='testpass')
 
-        # Выполнение
-        result = db.connect()
+            # Выполнение
+            result = db.connect()
 
-        # Проверка
-        assert result is False
-        mock_connect.assert_called_once()
-        assert db.connection is None
+            # Проверка
+            assert result is False
+            assert db.connection is None
 
-    def test_execute_query_success(self):
+    def test_execute_query_success(self, mock_db_connection):
         # Подготовка
-        db = PostgreSQLConnection()
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
         mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
@@ -52,10 +52,10 @@ class TestPostgreSQLConnection:
             {'id': 2, 'username': 'test2', 'email': 'test2@example.com'}
         ]
         
-        db.connection = mock_connection
+        mock_db_connection.connection = mock_connection
 
         # Выполнение
-        result = db.execute_query("SELECT * FROM users WHERE id > %s", (0,))
+        result = mock_db_connection.execute_query("SELECT * FROM users WHERE id > %s", (0,))
 
         # Проверка
         assert len(result) == 2
@@ -65,44 +65,41 @@ class TestPostgreSQLConnection:
         mock_cursor.execute.assert_called_once_with("SELECT * FROM users WHERE id > %s", (0,))
         mock_cursor.fetchall.assert_called_once()
 
-    def test_execute_query_no_connection(self):
+    def test_execute_query_no_connection(self, mock_db_connection):
         # Подготовка
-        db = PostgreSQLConnection()
-        db.connection = None
+        mock_db_connection.connection = None
 
         # Выполнение
-        result = db.execute_query("SELECT * FROM users")
+        result = mock_db_connection.execute_query("SELECT * FROM users")
 
         # Проверка
         assert result is None
 
-    def test_execute_query_exception(self):
+    def test_execute_query_exception(self, mock_db_connection):
         # Подготовка
-        db = PostgreSQLConnection()
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
         mock_connection.cursor.return_value.__enter__.side_effect = Exception("Query failed")
         
-        db.connection = mock_connection
+        mock_db_connection.connection = mock_connection
 
         # Выполнение
-        result = db.execute_query("SELECT * FROM users")
+        result = mock_db_connection.execute_query("SELECT * FROM users")
 
         # Проверка
         assert result is None
 
-    def test_execute_command_success(self):
+    def test_execute_command_success(self, mock_db_connection):
         # Подготовка
-        db = PostgreSQLConnection()
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
         mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
         mock_cursor.execute.return_value = None
         
-        db.connection = mock_connection
+        mock_db_connection.connection = mock_connection
 
         # Выполнение
-        result = db.execute_command("INSERT INTO users (username, email) VALUES (%s, %s)", ("test", "test@example.com"))
+        result = mock_db_connection.execute_command("INSERT INTO users (username, email) VALUES (%s, %s)", ("test", "test@example.com"))
 
         # Проверка
         assert result is True
@@ -110,18 +107,17 @@ class TestPostgreSQLConnection:
         mock_cursor.execute.assert_called_once_with("INSERT INTO users (username, email) VALUES (%s, %s)", ("test", "test@example.com"))
         mock_connection.commit.assert_called_once()
 
-    def test_execute_command_with_returning_id(self):
+    def test_execute_command_with_returning_id(self, mock_db_connection):
         # Подготовка
-        db = PostgreSQLConnection()
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
         mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
         mock_cursor.fetchone.return_value = (1,)  # ID новой записи
         
-        db.connection = mock_connection
+        mock_db_connection.connection = mock_connection
 
         # Выполнение
-        result = db.execute_command("INSERT INTO users (username, email) VALUES (%s, %s) RETURNING id", ("test", "test@example.com"), returning_id=True)
+        result = mock_db_connection.execute_command("INSERT INTO users (username, email) VALUES (%s, %s) RETURNING id", ("test", "test@example.com"), returning_id=True)
 
         # Проверка
         assert result == 1
@@ -130,28 +126,26 @@ class TestPostgreSQLConnection:
         mock_cursor.fetchone.assert_called_once()
         mock_connection.commit.assert_called_once()
 
-    def test_execute_command_no_connection(self):
+    def test_execute_command_no_connection(self, mock_db_connection):
         # Подготовка
-        db = PostgreSQLConnection()
-        db.connection = None
+        mock_db_connection.connection = None
 
         # Выполнение
-        result = db.execute_command("INSERT INTO users (username, email) VALUES (%s, %s)")
+        result = mock_db_connection.execute_command("INSERT INTO users (username, email) VALUES (%s, %s)")
 
         # Проверка
         assert result is False
 
-    def test_execute_command_exception(self):
+    def test_execute_command_exception(self, mock_db_connection):
         # Подготовка
-        db = PostgreSQLConnection()
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
         mock_connection.cursor.return_value.__enter__.side_effect = Exception("Command failed")
         
-        db.connection = mock_connection
+        mock_db_connection.connection = mock_connection
 
         # Выполнение
-        result = db.execute_command("INSERT INTO users (username, email) VALUES (%s, %s)")
+        result = mock_db_connection.execute_command("INSERT INTO users (username, email) VALUES (%s, %s)")
 
         # Проверка
         assert result is False

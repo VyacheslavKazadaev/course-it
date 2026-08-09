@@ -1,16 +1,20 @@
+import sys
+import os
+# Добавляем родительскую директорию в путь для импортов
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import pytest
 from unittest.mock import MagicMock
 from service.user import UserService
 
 
 class TestUserService:
-    def test_get_users_success(self):
+    def test_get_users_success(self, mock_db_connection):
         # Подготовка
-        mock_db = MagicMock()
         mock_repo = MagicMock()
         mock_repo.get_users.return_value = [{"id": 1, "username": "test", "email": "test@example.com"}]
         
-        user_service = UserService(mock_db)
+        user_service = UserService(mock_db_connection)
         user_service.repo = mock_repo
 
         # Выполнение
@@ -20,14 +24,13 @@ class TestUserService:
         assert result == [{"id": 1, "username": "test", "email": "test@example.com"}]
         mock_repo.get_users.assert_called_once()
 
-    def test_save_user_success(self):
+    def test_save_user_success(self, mock_db_connection):
         # Подготовка
-        mock_db = MagicMock()
         mock_repo = MagicMock()
         expected_result = {"success": True, "user_id": 1, "username": "test", "email": "test@example.com"}
         mock_repo.save_user.return_value = expected_result
         
-        user_service = UserService(mock_db)
+        user_service = UserService(mock_db_connection)
         user_service.repo = mock_repo
 
         # Выполнение
@@ -37,14 +40,13 @@ class TestUserService:
         assert result == expected_result
         mock_repo.save_user.assert_called_once_with("test", "test@example.com")
 
-    def test_get_user_success(self):
+    def test_get_user_success(self, mock_db_connection):
         # Подготовка
-        mock_db = MagicMock()
         mock_repo = MagicMock()
         expected_result = [{"id": 1, "username": "test", "email": "test@example.com"}]
         mock_repo.get_user.return_value = expected_result
         
-        user_service = UserService(mock_db)
+        user_service = UserService(mock_db_connection)
         user_service.repo = mock_repo
 
         # Выполнение

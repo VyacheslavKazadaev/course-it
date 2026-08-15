@@ -27,6 +27,16 @@ def mock_psycopg2():
     """Автоматическая фикстура для мокирования psycopg2"""
     with patch.dict('sys.modules', {
         'psycopg2': MagicMock(),
-        'psycopg2.extras': MagicMock()
+        'psycopg2.extras': MagicMock(),
+        'sqlalchemy': MagicMock(),
+        'sqlalchemy.orm': MagicMock(),
+        'sqlalchemy.sql': MagicMock()
     }):
         yield
+
+
+@pytest.fixture
+def mock_sqlalchemy_session():
+    """Фикстура для мокирования сессии SQLAlchemy"""
+    mock_session = MagicMock()
+    return mock_session

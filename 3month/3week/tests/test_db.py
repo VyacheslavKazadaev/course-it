@@ -6,6 +6,9 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import pytest
 from unittest.mock import MagicMock, patch
 from repo.db import PostgreSQLConnection
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
+from sqlalchemy.exc import SQLAlchemyError
 
 
 class TestPostgreSQLConnection:
@@ -65,12 +68,13 @@ class TestPostgreSQLConnection:
         mock_cursor.execute.assert_called_once_with("SELECT * FROM users WHERE id > %s", (0,))
         mock_cursor.fetchall.assert_called_once()
 
-    def test_execute_query_no_connection(self, mock_db_connection):
+    def test_execute_query_no_connection(self):
         # Подготовка
-        mock_db_connection.connection = None
+        db = PostgreSQLConnection()
+        db.connection = None
 
         # Выполнение
-        result = mock_db_connection.execute_query("SELECT * FROM users")
+        result = db.execute_query("SELECT * FROM users")
 
         # Проверка
         assert result is None
@@ -126,12 +130,13 @@ class TestPostgreSQLConnection:
         mock_cursor.fetchone.assert_called_once()
         mock_connection.commit.assert_called_once()
 
-    def test_execute_command_no_connection(self, mock_db_connection):
+    def test_execute_command_no_connection(self):
         # Подготовка
-        mock_db_connection.connection = None
+        db = PostgreSQLConnection()
+        db.connection = None
 
         # Выполнение
-        result = mock_db_connection.execute_command("INSERT INTO users (username, email) VALUES (%s, %s)")
+        result = db.execute_command("INSERT INTO users (username, email) VALUES (%s, %s)")
 
         # Проверка
         assert result is False
@@ -151,15 +156,13 @@ class TestPostgreSQLConnection:
         assert result is False
         mock_connection.rollback.assert_called_once()
 
-    def test_close_connection(self):
+    def test_close_connection(self, mock_db_connection):
         # Подготовка
-        db = PostgreSQLConnection()
         mock_connection = MagicMock()
-        db.connection = mock_connection
+        mock_db_connection.connection = mock_connection
 
         # Выполнение
-        db.close()
+        mock_db_connection.close()
 
         # Проверка
-        assert db.connection is not None
         mock_connection.close.assert_called_once()

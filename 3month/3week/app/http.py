@@ -15,5 +15,5 @@ def register_routes(app):
         return app.user_service.get_user(user_id)
 
     @app.api.delete("/users/{user_id}")
-    def delete_user(user_id: int = Path(..., gt=0)):        
+    def delete_user(user_id: int = Path(..., gt=0)):
         return app.user_service.delete_user(user_id)

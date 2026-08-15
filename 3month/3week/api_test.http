@@ -15,9 +15,9 @@ Content-Type: application/json
 ###
 
 ### Получить пользователя по ID
-GET http://localhost:8000/users/12
+GET http://localhost:8000/users/11
 
 ###
 
 ### Удалить пользователя по ID
-DELETE http://localhost:8000/users/12
+DELETE http://localhost:8000/users/11

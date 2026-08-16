@@ -1,0 +1,70 @@
+networks:
+  pylearn-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+
+services:
+  # Database Service - PostgreSQL v19
+  postgresql:
+    image: postgres:16-alpine3.24
+    container_name: pylearn_postgresql
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: pylearn_db
+      POSTGRES_USER: pylearn_user
+      POSTGRES_PASSWORD: pylearn_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - pylearn-network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "pylearn_user", "-h", "postgresql", "-p", "5432", "-d", "pylearn_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s    
+
+  # Migration Service
+  migrator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pylearn_migrator
+    restart: "no"
+    depends_on:
+      - postgresql
+    environment:
+      - POSTGRES_DB=pylearn_db
+      - POSTGRES_USER=pylearn_user
+      - POSTGRES_PASSWORD=pylearn_password
+      - DB_HOST=postgresql
+      - DB_PORT=5432
+    command: ["python", "run_migrations.py"]
+    networks:
+      - pylearn-network
+    volumes:
+      - ./:/app # Mount the app code
+
+  # API Service
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pylearn_api
+    restart: unless-stopped
+    depends_on:
+      - postgresql
+      - migrator
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    networks:
+      - pylearn-network
+    volumes:
+      - ./:/app
+    command: ["python", "main.py"]

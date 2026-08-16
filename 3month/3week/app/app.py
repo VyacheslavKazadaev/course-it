@@ -15,9 +15,6 @@ class App:
         db_url = f"postgresql://{os.getenv('DB_USER', 'postgres')}:{os.getenv('DB_PASSWORD', '')}@{os.getenv('DB_HOST', 'localhost')}:{os.getenv('DB_PORT', 5432)}/{os.getenv('DB_NAME', 'postgres')}"
         self.engine = create_engine(db_url)
         
-        # Создание таблиц
-        Base.metadata.create_all(self.engine)
-        
         self.SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=self.engine)
         self.api = FastAPI()
         

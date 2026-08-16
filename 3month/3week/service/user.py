@@ -1,3 +1,5 @@
+from typing import Callable
+
 from model.user import User
 from repo.db import PostgreSQLConnection
 from repo.users import UserRepo
@@ -66,15 +68,21 @@ class UserService:
                 session.close()
     
     def delete_user(self, user_id: int) -> dict:
-        repo, session = self._get_repo_with_session()
-        try:
+        def trx (repo, session):
             result = repo.delete_user(user_id)
             session.commit()  # Подтверждаем транзакцию
             if result:
                 response = {"success": True, "message": f"User with id {user_id} deleted successfully"}
             else:
                 response = {"error": f"Failed to delete user with id {user_id}"}
-            return response            
+            return response 
+
+        return self.transaction(trx)
+
+    def transaction(self, trx: Callable[['SomeRepositoryType', 'SomeSessionType'], str]):
+        repo, session = self._get_repo_with_session()
+        try:
+            return trx(repo, session)
         finally:
             if session:
                 session.close()

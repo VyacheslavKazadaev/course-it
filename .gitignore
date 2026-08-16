@@ -6,3 +6,4 @@ gitlab/data
 forgejo/data
 forgejo/etc
 .coverage
+.env

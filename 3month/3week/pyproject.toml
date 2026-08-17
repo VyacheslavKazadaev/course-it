@@ -1,0 +1,52 @@
+[project]
+name = "3week"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Slava",email = "neo098765@gmail.com"}
+]
+requires-python = ">=3.12"
+dependencies = [
+    "alembic (>=1.19.1,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.dependencies]
+annotated-doc = "^0.0.4"
+annotated-types = "^0.7.0"
+anyio = "^4.13.0"
+black = "^26.5.1"
+click = "^8.3.3"
+coverage = "^7.15.2"
+dotenv = "^0.9.9"
+fastapi = "^0.136.1"
+greenlet = "^3.5.4"
+h11 = "^0.16.0"
+idna = "^3.14"
+iniconfig = "^2.3.0"
+Mako = "^1.4.1"
+MarkupSafe = "^3.0.3"
+mypy_extensions = "^1.1.0"
+packaging = "^25.0"
+pathspec = "^1.1.1"
+platformdirs = "^4.11.0"
+pluggy = "^1.6.0"`
+psycopg2-binary = "^2.9.12"
+pydantic = "^2.13.4"
+pydantic_core = "^2.46.4"
+Pygments = "^2.19.2"
+python-dotenv = "^1.2.2"
+pytokens = "^0.4.1"
+SQLAlchemy = "^2.0.51"
+starlette = "^1.0.0"
+typing-inspection = "^0.4.2"
+typing_extensions = "^4.15.0"
+uvicorn = "^0.46.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.0.2"
+pytest-cov = "^7.1.0"

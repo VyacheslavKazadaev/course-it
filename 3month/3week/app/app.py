@@ -21,6 +21,7 @@ class App:
         # Создание экземпляра сервиса, передавая фабрику сессий
         self.user_service = UserService(session_factory=self.SessionLocal)
 
+
     def server_run(self):
         host = os.getenv('APP_HOST', 'localhost')
         port = int(os.getenv('APP_PORT', 8000))

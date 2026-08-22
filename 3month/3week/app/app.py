@@ -15,11 +15,11 @@ class App:
         db_url = f"postgresql://{os.getenv('DB_USER', 'postgres')}:{os.getenv('DB_PASSWORD', '')}@{os.getenv('DB_HOST', 'localhost')}:{os.getenv('DB_PORT', 5432)}/{os.getenv('DB_NAME', 'postgres')}"
         self.engine = create_engine(db_url)
         
-        self.SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=self.engine)
+        self.session_local = sessionmaker(autocommit=False, autoflush=False, bind=self.engine)
         self.api = FastAPI()
         
         # Создание экземпляра сервиса, передавая фабрику сессий
-        self.user_service = UserService(session_factory=self.SessionLocal)
+        self.user_service = UserService(session_factory=self.session_local)
 
 
     def server_run(self):

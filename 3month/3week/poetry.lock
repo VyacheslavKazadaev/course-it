@@ -41,6 +41,17 @@ typing_extensions = {version = ">=4.5", markers = "python_version < \"3.13\""}
 trio = ["trio (>=0.32.0)"]
 
 [[package]]
+name = "argon2"
+version = "0.1.10"
+description = "Bindings for the argon2 password hasher"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "argon2-0.1.10.tar.gz", hash = "sha256:523a3d3b88f3a46244b4976a6ca81994705848538bbe9e41426ea54ccb75eb90"},
+]
+
+[[package]]
 name = "certifi"
 version = "2026.7.22"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -742,6 +753,21 @@ files = [
 windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
+name = "pyjwt"
+version = "2.13.0"
+description = "JSON Web Token implementation in Python"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "pyjwt-2.13.0-py3-none-any.whl", hash = "sha256:66adcc2aff09b3f1bbd95fc1e1577df8ac8723c978552fd43304c8a290ac5728"},
+    {file = "pyjwt-2.13.0.tar.gz", hash = "sha256:41571c89ca91598c79e8ef18a2d07367d4810fbbd6f637794879baf1b7703423"},
+]
+
+[package.extras]
+crypto = ["cryptography (>=3.4.0)"]
+
+[[package]]
 name = "pytest"
 version = "9.1.1"
 description = "pytest: simple powerful testing with Python"
@@ -942,4 +968,4 @@ zstd = ["backports-zstd (>=1.0.0) ; python_version < \"3.14\""]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.12"
-content-hash = "8277476d113de1e8a47e1939fed0b1640113121f08a576df266cc2c3934b385a"
+content-hash = "93f94c51ee245273756d5af0ab319b9ea280475afe07c5c77adfb2cfe956b55a"

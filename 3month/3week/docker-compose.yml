@@ -66,5 +66,5 @@ services:
     networks:
       - pylearn-network
     volumes:
-      - ./:/app
+      - ./:/app:cached
     command: ["python", "main.py"]

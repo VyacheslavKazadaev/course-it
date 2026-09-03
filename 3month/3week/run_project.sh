@@ -16,7 +16,7 @@ fi
 
 # Поднимаем postgresql и migrator
 echo "Starting PostgreSQL and running migrations..."
-docker compose up --build -d api postgresql migrator
+docker compose up -d postgresql api migrator
 
 # Ждем, пока миграции завершатся
 echo "Waiting for migrations to complete..."
